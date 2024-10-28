@@ -23,40 +23,15 @@ def get_number():
 import numpy
 import scipy
 import math
-from bisect import bisect_right
+import bisect
 
-#length = get_number()
-#lasersACount = get_number()
-#lasersBCount = get_number()
-#sectors = 1
-#lasersA = []
-#lasersB = []
-#i = 0
-#def binarySearch(array, value):
-#    low = 0
-#    length = len(array)
-#    maxIndex = len(array) - 1
-#    index = math.trunc(len(array)/2)
-#    high = maxIndex
-#    while (index - high < 1) & (index - low >= 1):
-#        if value < array[index]:
-#            low = index
-#            index = index + math.trunc(index/2)
-#        elif value > array[index]:
-#            high = index
-#            if index == 1:
-                index = index - math.ceil(index/2)
-            else:
-                index = index - math.trunc(index/2)
-        elif value == array[index]:
-            high = index
-            index = index - 1
-    if value < array[maxIndex]:
-        return length
-    elif index == 0 & value > array(0):
-        return 0
-    else:
-        return index + 1
+length = get_number()
+lasersACount = get_number()
+lasersBCount = get_number()
+sectors = 1
+lasersA = []
+lasersB = []
+i = 0
 while i < lasersACount:
     direction = get_word()
     value = get_number()
@@ -65,100 +40,24 @@ while i < lasersACount:
     sectors = sectors + 1
     lasersA.append(value)
     i = i+1
-lasersA.sort(reverse=True)
+lasersA.sort()
 i = 0
 while i < lasersBCount:
     direction = get_word()
     value = get_number()
     if direction == 'L':
         value = value - length
-    numberOfLinesCrossed = binarySearch(lasersA, value)
-    sectors = sectors + numberOfLinesCrossed + 1
+    j=0
+    # pred = lambda lasersA: -1*lasersA
+    # j = bisect.bisect_left(lasersA, value, key=pred)
+    j = len(lasersA) - bisect.bisect_right(lasersA, value)
+    # while(j<len(lasersA) and value<lasersA[j]):
+    #      j = j+1
+
+    sectors = sectors + j + 1
     i  = i +1
 print(sectors)
 
-# if lasersACount == 0 & lasersBCount == 0:
-#     print(1)
-# elif lasersBCount == 0 or lasersBCount ==0:
-#     if lasersBCount == 0:
-#         sectors = sectors + lasersACount
-#     else:
-#         sectors = sectors + lasersBCount
-#     print(sectors)
-# else:
-#     i = 0
-#     while i<lasersACount:
-#         direction = get_word()
-#         value = get_number()
-#         if direction == 'R':
-#             sectors = sectors + lasersBCount
-#         else:
-#             lasersA.append(value)
-#         i = i+1
-#     i = 0
-#     while i<lasersBCount:
-#         direction = get_word()
-#         value = get_number()
-#         if direction == 'L':
-#             sectors = sectors + lasersACount
-#         else:
-#             lasersB.append(value)
-#         i=i+1
-#     print(sectors)
-#     if lasersACount == 1 & lasersBCount == 1:
-#         if len(lasersB) == 0 or len(lasersA)==0:
-#             print(4)
-#         else:
-#             if lasersA[0]>lasersB[0]:
-#                 print(4)
-#             else:
-#                 print(3)
-#     elif lasersACount == 1 or lasersBCount == 1:
-#         lasersB.sort()
-#         lasersA.sort(reverse=True)
-#         for i in lasersA:
-#             j = 0
-#             if lasersA[i] < lasersB[0]:
-#                 break
-#             while lasersA[i] > lasersB[j]:
-#                 sectors = sectors + 1
-#                 j = j+1
-            
-#         for i in lasersB:
-#             j =0
-#             if lasersB[i] > lasersA[0]:
-#                 break
-#             while lasersB[i]< lasersA[j]:
-#                 sectors = sectors+1
-#                 j = j+1
-#         print(lasersA)
-#         print(lasersB)
-#         print(sectors+1)
-#     else:
-#         lasersB.sort()
-#         lasersA.sort(reverse=True)
-#         i = 0
-#         while i < len(lasersA):
-#             j = 0
-#             if lasersA[i] < lasersB[0]:
-#                 break
-#             while lasersA[i] > lasersB[j] :
-#                 sectors = sectors + 1
-#                 j = j+1
-#                 if j == len(lasersB):
-#                     break
-#             i = i+1
-#         i = 0
-#         while i < len(lasersB):
-#             j =0
-#             if lasersB[i] > lasersA[0]:
-#                 break
-#             while lasersB[i]< lasersA[j]:
-#                 sectors = sectors+1
-#                 j = j+1
-#                 if j == len(lasersA):
-#                     break
-#             i = i+1
 #         print(sectors)
 
 
